@@ -43,7 +43,7 @@ jobs:
       - name: Raising issue for approval
         uses: trstringer/manual-approval@v1
         with:
-          #          secret: ${{ github.TOKEN }}
+          secret: ${{ github.TOKEN }}
           approvers: drathbone
           minimum-approvals: 1
           issue-title: "Approval to run Terraform apply"
