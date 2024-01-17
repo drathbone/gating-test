@@ -1,4 +1,4 @@
-name: "Gated Apply - Env Protection one"
+name: "Gated Apply - Env Protection all"
 
 permissions:
   issues: write
@@ -30,23 +30,21 @@ on:
         default: ''
 
 jobs:
-  tf_gated_apply:
-    name: "Terraform Gated Apply"
+  tf_gated_plan:
+    name: "Terraform Plan"
     runs-on: ubuntu-latest
+    environment: "gated-approval"
     steps:
-
-      # Terraform plan (unprotected environment)
+      # Terraform plan
       - name: "Terraform plan"
-        environment: "prod"
         run: echo "Planning the terraform code here..."
 
-      # Hit a protected environment just to get auth to apply
-      - name: "Approval required"
-        environment: "gated-approval"
-        run: echo "Approval for apply has been granted"
-
+  tf_gated_apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    environment: "gated-approval"
+    steps:
       # Terraform apply
       - name: "Terraform apply"
-        environment: "prod"
         run: echo "Applying the terraform code here..."
 
