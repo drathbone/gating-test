@@ -1,5 +1,8 @@
 name: "Gated Apply Test"
 
+permissions:
+  issues: write
+
 on:
   workflow_dispatch:
     inputs:
