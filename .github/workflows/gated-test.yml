@@ -35,6 +35,7 @@ jobs:
 
   tf_gate:
     name: Manual Workflow Approval
+    runs-on: ubuntu-latest
     steps:
       - uses: trstringer/manual-approval@v1
         with:
