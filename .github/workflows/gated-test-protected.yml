@@ -1,0 +1,47 @@
+name: "Gated Apply - Env Protection all"
+
+permissions:
+  issues: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      dev_deploy:
+        description: Enable deployment to development environment
+        required: true
+        default: true
+        type: boolean
+      action:
+        description: Select Terraform action to run.
+        type: choice
+        required: true
+        options:
+        - plan
+        - apply
+      components:
+        description: Provide terraform component list to deploy to environment.
+        required: true
+        type: string
+        default: '["account"]'
+      terraform_args:
+        description: Additional arguments to pass to terraform
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  tf_gated_apply:
+    name: "Terraform Gated Apply"
+    runs-on: ubuntu-latest
+    steps:
+
+      # Terraform plan
+      - name: "Terraform plan"
+        environment: "gated-approval"
+        run: echo "Planning the terraform code here..."
+
+      # Terraform apply
+      - name: "Terraform apply"
+        environment: "gated-approval"
+        run: echo "Applying the terraform code here..."
+
