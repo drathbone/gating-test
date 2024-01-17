@@ -37,7 +37,7 @@ jobs:
 
       # Terraform plan
       - name: "Terraform plan"
-        runs: echo "Planning the terraform code here..."
+        run: echo "Planning the terraform code here..."
 
       # Raise an issue to approve the apply
       - uses: trstringer/manual-approval@v1
@@ -54,5 +54,5 @@ jobs:
 
       # Terraform apply
       - name: "Terraform apply"
-        runs: echo "Applying the terraform code here..."
+        run: echo "Applying the terraform code here..."
 
