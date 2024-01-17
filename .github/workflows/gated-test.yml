@@ -34,8 +34,8 @@ jobs:
       - run: echo "Planning the tf code here..."
 
   tf_gate:
-    - name: Manual Workflow Approval
-      uses: trstringer/manual-approval@v1.9.0
+    name: Manual Workflow Approval
+    uses: trstringer/manual-approval@v1.9.0
 
   tf_apply:
     environment: 'prep'
