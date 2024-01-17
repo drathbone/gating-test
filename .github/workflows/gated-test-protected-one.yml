@@ -45,11 +45,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: "gated-approval"
     steps:
-      - name: "Gated for approval"
+      - name: "Approval required to apply terraform"
         run: echo "Approval for apply has been granted"
 
   tf_apply:
-    name: Terraform Apply"
+    name: "Terraform Apply"
     needs: [approval]
     runs-on: ubuntu-latest
     environment: "prod"
