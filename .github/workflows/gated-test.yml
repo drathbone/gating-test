@@ -29,19 +29,23 @@ on:
 jobs:
   tf_plan:
     environment: 'prep'
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps: 
       - run: echo "Planning the tf code here..."
 
   tf_gate:
-    environment: 'prep'
-    runs-on: ubuntu_latest
+    environment: 'gated-approval'
+    runs-on: ubuntu-latest
+    needs:
+      - tf_plan
     steps:
-      - run: echo "gating goes here"
+      - run: echo "Approved for deployment"
 
   tf_apply:
     environment: 'prep'
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
+    needs:
+      - tf_gate
     steps:
       - run: echo "Apply the tf here..."
 
