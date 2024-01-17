@@ -37,22 +37,18 @@ jobs:
       - name: "Terraform Plan"
         run: echo "Planning the terraform code here..."
 
-  tf_approval:
-    name: "Raise issue for apply approval"
-    needs: [tf_plan]
-    uses: trstringer/manual-approval@v1
-    with:
-      secret: ${{ github.TOKEN }}
-      approvers: drathbone
-      minimum-approvals: 1
-      issue-title: "Approval to run Terraform apply"
-      issue-body: "Please approve or deny the terraform apply"
-
   tf_apply:
-    needs: [tf_approval]
+    needs: [tf_plan]
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     steps:
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: drathbone
+          minimum-approvals: 1
+          issue-title: "Approval to run Terraform apply"
+          issue-body: "Please approve or deny the terraform apply"
       - name: "Terraform Apply"
         run: echo "Applying the terraform code here..."
 
