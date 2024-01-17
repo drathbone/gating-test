@@ -40,17 +40,14 @@ jobs:
         run: echo "Planning the terraform code here..."
 
       # Raise an issue to approve the apply
-      - uses: trstringer/manual-approval@v1
-        name: "Approval gate"
+      - name: Raising issue for approval
+        uses: trstringer/manual-approval@v1
         with:
-          secret: ${{ github.TOKEN }}
+          #          secret: ${{ github.TOKEN }}
           approvers: drathbone
           minimum-approvals: 1
           issue-title: "Approval to run Terraform apply"
           issue-body: "Please approve or deny the terraform apply"
-          exclude-workflow-initiator-as-approver: false
-          additional-approved-words: ''
-          additional-denied-words: ''
 
       # Terraform apply
       - name: "Terraform apply"
