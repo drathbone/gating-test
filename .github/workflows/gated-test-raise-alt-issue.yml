@@ -34,7 +34,8 @@ jobs:
     name: "Terraform Plan"
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Planning the terraform code here..."
+      - name: "Terraform Plan"
+        run: echo "Planning the terraform code here..."
 
   tf_approval:
     name: "Raise issue for apply approval"
@@ -52,5 +53,6 @@ jobs:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Applying the terraform code here..."
+      - name: "Terraform Apply"
+        run: echo "Applying the terraform code here..."
 
