@@ -1,0 +1,48 @@
+name: "Gated Apply Test"
+
+on:
+  workflow_dispatch:
+    inputs:
+      dev_deploy:
+        description: Enable deployment to development environment
+        required: true
+        default: true
+        type: boolean
+      action:
+        description: Select Terraform action to run.
+        type: choice
+        required: true
+        options:
+        - plan
+        - apply
+      components:
+        description: Provide terraform component list to deploy to environment.
+        required: true
+        type: string
+        default: '["account"]'
+      terraform_args:
+        description: Additional arguments to pass to terraform
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  tf_plan:
+    environment: 'prep'
+    runs_on: ubuntu_latest
+    steps: 
+      - run: echo "Planning the tf code here..."
+
+  tf_gate:
+    environment: 'prep'
+    runs_on: ubuntu_latest
+    steps:
+      - run: echo "gating goes here"
+
+  tf_apply:
+    environment: 'prep'
+    runs_on: ubuntu_latest
+    steps:
+      - run: echo "Apply the tf here..."
+
+
