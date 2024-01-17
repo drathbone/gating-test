@@ -1,4 +1,4 @@
-name: "Gated Apply - Raise an issue"
+name: "Gated Apply - Raise an issue (alt)"
 
 permissions:
   issues: write
