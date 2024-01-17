@@ -1,0 +1,54 @@
+name: "Gated Apply - Raise an issue"
+
+permissions:
+  issues: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      dev_deploy:
+        description: Enable deployment to development environment
+        required: true
+        default: true
+        type: boolean
+      action:
+        description: Select Terraform action to run.
+        type: choice
+        required: true
+        options:
+        - plan
+        - apply
+      components:
+        description: Provide terraform component list to deploy to environment.
+        required: true
+        type: string
+        default: '["account"]'
+      terraform_args:
+        description: Additional arguments to pass to terraform
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  tf_plan:
+    name: "Terraform Plan"
+    runs-on: ubuntu-latest
+    run: echo "Planning the terraform code here..."
+
+  tf_approval:
+    name: "Raise issue for apply approval"
+    needs: [tf_plan]
+    uses: trstringer/manual-approval@v1
+    with:
+      secret: ${{ github.TOKEN }}
+      approvers: drathbone
+      minimum-approvals: 1
+      issue-title: "Approval to run Terraform apply"
+      issue-body: "Please approve or deny the terraform apply"
+
+  tf_apply:
+    needs: [tf_approval]
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    run: echo "Applying the terraform code here..."
+
