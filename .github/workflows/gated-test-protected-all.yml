@@ -43,6 +43,7 @@ jobs:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     environment: "gated-approval"
+    needs: [tf_gated_plan]
     steps:
       # Terraform apply
       - name: "Terraform apply"
